@@ -1,9 +1,12 @@
-ubuntu_lamp_template
+Ubuntu Lamp Template Cookbook
 ====================
+by Seandon Mooy <seandon.mooy@gmail.com>
 
 A template for a LAMP stack application on Ubuntu 14.04 featuring PHP5.6 and
 MariaDB 10.0 - it is designed to be as fast as possible, require as few
 cookbooks as possible, and make things as obvious as possible.
+
+This is not a wrapper - it should not be included - instead, clone the repo, rename it, and get cookin'
 
 A stand-alone test node, which can deploy and test an entire app looks like so:
 
@@ -14,7 +17,6 @@ A stand-alone test node, which can deploy and test an entire app looks like so:
 
 It's that easy! Make sure to modify the recipes/role_app.rb recipe so that you
 actually deploy a site. It will deploy a little example by default.
-
 
 How to use this cookbook:
 ====================
@@ -36,21 +38,21 @@ Afterwards, simply bootstrap the nodes! To build a single node test app, just:
 
 run_list: "role[app]", "role[db_master]"
 
-Recommended prod environment:
+Recommended environment size:
 ====================
 
-I recommend at least 2gb of RAM for all testing purposes, as MariaDB10, Apache, PHP-FPM, Memcached, Varnish, and NewRelic will all be included. For best performance to price ratio, I recommend at least 3 4gb or 8gb "General" compute nodes from Rackspace.com for "app" servers. The "db_master" server should be a Rackspace.com OnMetal Compute instance with an attached SSD Volume (unless your MySQL size is very very small, and you can deal with a 30gb disk). If this is a very very IO intensive database, use the OnMetal IO server. The "db_slave" can be a 8gb "General" server. LAMP stacks depend massively on their master database for performance. Take great care tuning MySQL - this cookbook will self tune to some extent, but make sure you read the included guide carefully. The tuning guide is located at TUNING.md.
+I recommend at least 2gb of RAM for all testing purposes, as MariaDB10, Apache, PHP-FPM, Memcached, Varnish, and NewRelic will all be included. For best performance to price ratio, I recommend at least 3 4gb or 8gb "General" compute nodes from Rackspace.com for "app" servers. The master database server should be a Rackspace.com OnMetal Compute instance with an attached SSD Volume (unless your MySQL size is very very small, and you can deal with a 30gb disk). If this is a very very IO intensive database, use the OnMetal IO server. The "db_slave" can be a 8gb "General" server. LAMP stacks depend massively on their master database for performance. Take great care tuning MySQL - this cookbook will self tune to some extent, but make sure you read the included guide carefully. The tuning guide is located at TUNING.md.
 
 Rant:
 ====================
 
 This cookbook is meant to illustrate a collection of best practices I have been designing for Chef. As such:
 
-1. The will never be an attributes file, ever. Chef attributes are bad. Recipes instead.
+1. The will never be an attributes file, ever. Chef attributes are bad - use recipes instead.
 2. Roles _are_ recipes, no exception. A "app" server only runs "role[app]", which in turn is _only_ "recipes/role_app.rb".
 3. Never reference itself unless otherwise unavoidable - instead using #{cookbook_name}.
 4. Prioritize real application testing and Time-To-Production over code testing and philosophy.
 5. Strive to include as few foreign cookbooks as possible.
 6. Converge speed is a top concern - all cruft left at the door.
 7. Recipes function not only as a infrastructure-as-code, but also as code-as-support-guide. A Ops person reading a recipe ought to be able to understand how to support it, via comments and clear code.
-8. Discourage the usage of mixed sources of truth - favoring clarity over philsophies.
+8. Discourage the usage of mixed sources of truth - favoring clarity over philsophies. This means if an attribute can be defined in a recipe, it will be. Data bags, attributes hidden in attribute files, environments, nodes, roles, are all _strongly_ discouraged.
