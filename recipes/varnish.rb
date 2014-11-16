@@ -9,5 +9,5 @@ service 'varnish' do
   supports restart: true, reload: true, status: true
 end
 
-# TODO Configure varnish
-# TODO Setup prefabs for drupal, wordpress
+# TODO: Configure varnish
+# TODO: Setup prefabs for drupal, wordpress
