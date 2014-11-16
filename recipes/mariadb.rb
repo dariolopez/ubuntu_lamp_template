@@ -22,7 +22,7 @@ end
 package 'mariadb-server'
 
 template '/etc/mysql/my.cnf' do
-  source 'my.cnf.erb'
+  source node['mysql']['template_name']
   owner 'root'
   group 'root'
   mode '0644'
@@ -33,6 +33,12 @@ template '/etc/mysql/my.cnf' do
   notifies :restart, 'service[mysql]'
 end
 
+# MySQL ulimit setting
+user_ulimit 'mysql' do
+  filehandle_limit 8192
+  core_hard_limit 'unlimited'
+end
+
 # Ensure service is runing
 service 'mysql' do
   service_name 'mysql'
@@ -40,5 +46,4 @@ service 'mysql' do
   action [:enable, :start]
 end
 
-# TODO: Manage MariaDB config
 # TODO: OS Tuning

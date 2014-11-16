@@ -3,6 +3,7 @@ source "https://supermarket.getchef.com"
 cookbook 'apt'
 cookbook 'user'
 
+cookbook 'ulimit', git: 'git@github.com:bmhatfield/chef-ulimit.git'
 cookbook 'newrelic', git: 'git@github.com:escapestudios-cookbooks/newrelic.git'
 cookbook 'cron', git: 'git@github.com:rackspace-cookbooks/cron.git'
 

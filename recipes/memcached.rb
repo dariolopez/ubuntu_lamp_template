@@ -8,15 +8,15 @@ template '/etc/memcached.conf' do
   group 'root'
   mode '0644'
   variables(
-    listen: '0.0.0.0',
-    user: 'memcache',
-    port: 11_211,
-    udp_port: 11_211,
-    maxconn: 1024,
-    memory: 256,
-    max_object_size: '1m'
+    nothing: here
   )
   notifies :restart, 'service[memcached]'
+end
+
+# Memcached ulimit
+user_ulimit 'memcache' do
+  filehandle_limit 8192
+  core_hard_limit 'unlimited'
 end
 
 service 'memcached' do

@@ -13,6 +13,7 @@ depends 'apt'
 depends 'user'
 depends 'cron'
 depends 'newrelic'
+depends 'ulimit'
 
 # For Rackspace Customers Only - make sure to remove from Berksfile as well
 depends 'rackops_rolebook'

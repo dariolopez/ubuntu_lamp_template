@@ -26,6 +26,12 @@ template '/etc/varnish/default.vcl' do
   notifies :restart, 'service[varnish]'
 end
 
+# Varnish ulimit
+user_ulimit 'varnish' do
+  filehandle_limit 8192
+  core_hard_limit 'unlimited'
+end
+
 service 'varnish' do
   service_name 'varnish'
   action [:enable, :start]

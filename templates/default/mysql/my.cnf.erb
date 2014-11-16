@@ -22,7 +22,7 @@ bind-address		= <%= @listen %>
 #
 # * Fine Tuning
 #
-max_connections		= 100
+max_connections		= 200
 connect_timeout		= 5
 wait_timeout		= 600
 max_allowed_packet	= 16M
@@ -39,17 +39,17 @@ max_heap_table_size	= 32M
 myisam_recover          = BACKUP
 key_buffer_size		= 128M
 #open-files-limit	= 2000
-table_open_cache	= 400
+table_open_cache	= 2048
 myisam_sort_buffer_size	= 512M
 concurrent_insert	= 2
-read_buffer_size	= 2M
-read_rnd_buffer_size	= 1M
+read_buffer_size	= 4M
+read_rnd_buffer_size	= 2M
 #
 # * Query Cache Configuration
 #
 # Cache only tiny result sets, so we can fit more in the query cache.
 query_cache_limit		= 128K
-query_cache_size		= 64M
+query_cache_size		= 128M
 # for more write intensive setups, set to DEMAND or OFF
 #query_cache_type		= DEMAND
 #
@@ -87,7 +87,7 @@ log_bin			= /var/log/mysql/mariadb-bin
 log_bin_index		= /var/log/mysql/mariadb-bin.index
 # not fab for performance, but safer
 #sync_binlog		= 1
-expire_logs_days	= 10
+expire_logs_days	= 2
 max_binlog_size         = 100M
 # slaves
 #relay_log		= /var/log/mysql/relay-bin
@@ -106,15 +106,18 @@ max_binlog_size         = 100M
 # Read the manual for more InnoDB related options. There are many!
 default_storage_engine	= InnoDB
 # you can't just change log file size, requires special procedure
-#innodb_log_file_size	= 50M
-innodb_buffer_pool_size	= 256M
-innodb_log_buffer_size	= 8M
+innodb_log_file_size	= 256M
+# CHANGE THIS! Buffer_pool_size should be roughly 60% of the servers total memory
+# see tuning guide for more
+innodb_buffer_pool_size	= 1G
+innodb_log_buffer_size	= 256M
 innodb_file_per_table	= 1
-innodb_open_files	= 400
-innodb_io_capacity	= 400
+innodb_open_files	= 2048
+innodb_io_capacity	= 800
 innodb_flush_method	= O_DIRECT
-
-
+innodb_buffer_pool_load_at_startup = 1
+innodb_buffer_pool_dump_at_shutdown = 1
+innodb_flush_log_at_trx_commit = 0
 
 [mysqldump]
 quick

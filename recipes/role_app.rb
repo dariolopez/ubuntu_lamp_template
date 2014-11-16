@@ -17,8 +17,10 @@ include_recipe "#{cookbook_name}::default"
 # Apache2 - we will use the event MPM and connect to PHP-FPM by default
 include_recipe "#{cookbook_name}::apache2"
 
-# Memcached - If not used directly by the application,
-# this will at least be used by PHP for session management.
+# Memcached - If not used directly by the application, disable
+# we will use the db_master's memcached for session handling
+# this local memcached will be used as a fast local in-memory cache
+# for applications like Drupal and Wordpress which can use it properly.
 include_recipe "#{cookbook_name}::memcached"
 
 # Varnish - Will be VERY safe/default to start with, simply caching
