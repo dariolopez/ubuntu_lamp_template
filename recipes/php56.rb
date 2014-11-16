@@ -28,6 +28,7 @@ package 'php5-fpm'
 package 'php5-curl'
 package 'php5-mysql'
 package 'php5-mcrypt'
+package 'php5-memcached'
 # package 'php5-gd'
 # package 'php5-sqlite'
 
