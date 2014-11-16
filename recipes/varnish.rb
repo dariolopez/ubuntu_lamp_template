@@ -8,3 +8,6 @@ service 'varnish' do
   provider Chef::Provider::Service::Upstart
   supports restart: true, reload: true, status: true
 end
+
+# TODO Configure varnish
+# TODO Setup prefabs for drupal, wordpress

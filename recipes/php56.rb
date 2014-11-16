@@ -41,3 +41,7 @@ end
 
 # TODO: Add a check to ensure 5.6 actually got installed, and we didn't mess up
 # and install 5.5 by accident.
+
+# TODO: Configure PHP-FPM via template
+# TODO: Configure PHP to use Memcached for sessions
+# TODO: Install NewRelic PHP if a newrelic key is defined

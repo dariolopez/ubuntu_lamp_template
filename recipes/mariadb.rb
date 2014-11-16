@@ -30,3 +30,4 @@ service 'mysql' do
 end
 
 # TODO: Manage MariaDB config
+# TODO: OS Tuning
