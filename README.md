@@ -23,12 +23,12 @@ How to use this cookbook:
 
 1. Copy the cookbook into your desired cookbook directory, naming it as desired
 2. Remove the CHANGELOG.md, README.md and Berksfile.lock files
-3. Write a new README.md, start a new CHANGELOG.md, and "berks install"
+3. Write a new README.md with a link to this repo and start a new CHANGELOG.md
 4. Edit metadata.rb and replace the cookbook name and author
 5. Edit .kitchen.yml and replace the cookbook name
 6. Edit Vagrantfile and replace the cookbook name
 
-Next, you can "berks upload" and create 3 roles:
+Next, you can "berks install", "berks upload" and create 3 roles:
 
 1. "app", with a "run_list" of "recipe[COOKBOOKNAME::role_app]"
 2. "db_master", with a "run_list" of "recipe[COOKBOOKNAME::role_db_master]"
