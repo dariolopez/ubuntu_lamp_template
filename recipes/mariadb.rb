@@ -36,7 +36,7 @@ end
 # Ensure service is runing
 service 'mysql' do
   service_name 'mysql'
-  supports restart: true, reload: true, status: true
+  supports restart: true, status: true
   action [:enable, :start]
 end
 

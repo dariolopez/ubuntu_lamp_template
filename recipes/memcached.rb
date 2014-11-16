@@ -22,5 +22,5 @@ end
 service 'memcached' do
   service_name 'memcached'
   action [:enable, :start]
-  supports restart: true, reload: true, status: true
+  supports restart: true, status: true
 end
