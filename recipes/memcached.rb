@@ -8,7 +8,7 @@ template '/etc/memcached.conf' do
   group 'root'
   mode '0644'
   variables(
-    nothing: here
+    nothing: 'here'
   )
   notifies :restart, 'service[memcached]'
 end

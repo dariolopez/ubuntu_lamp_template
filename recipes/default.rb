@@ -21,6 +21,5 @@ node.default['rackspace'] = {
   }
 }
 
-
 # Include Rackspace Operations Rolebook - For Managed DevOps customer only
-include_recipe "rackops_rolebook"
+include_recipe 'rackops_rolebook'
