@@ -48,7 +48,7 @@ Rant:
 
 This cookbook is meant to illustrate a collection of best practices I have been designing for Chef. As such:
 
-1. The will never be an attributes file, ever. Chef attributes are bad - use recipes instead.
+1. There will never be an attributes file, ever. Chef attributes are bad - use recipes instead.
 2. Roles _are_ recipes, no exception. A "app" server only runs "role[app]", which in turn is _only_ "recipes/role_app.rb".
 3. Never reference itself unless otherwise unavoidable - instead using #{cookbook_name}.
 4. Prioritize real application testing and Time-To-Production over code testing and philosophy.

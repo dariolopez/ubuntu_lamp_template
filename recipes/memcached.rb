@@ -22,6 +22,5 @@ end
 service 'memcached' do
   service_name 'memcached'
   action [:enable, :start]
-  provider Chef::Provider::Service::Upstart
   supports restart: true, reload: true, status: true
 end

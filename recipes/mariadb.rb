@@ -21,11 +21,22 @@ end
 # Install mariadb server!
 package 'mariadb-server'
 
+template '/etc/mysql/my.cnf' do
+  source 'my.cnf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    listen: '0.0.0.0',
+    server_id: node['mysql']['server_id']
+  )
+  notifies :restart, 'service[mysql]'
+end
+
 # Ensure service is runing
 service 'mysql' do
   service_name 'mysql'
   supports restart: true, reload: true, status: true
-  provider Chef::Provider::Service::Upstart
   action [:enable, :start]
 end
 
