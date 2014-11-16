@@ -1,0 +1,16 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ubuntu_lamp_template::role_app]
+      - recipe[ubuntu_lamp_template::role_db_master]
+    attributes:
