@@ -8,7 +8,6 @@ apt_repository 'mariadb' do
   keyserver 'hkp://keyserver.ubuntu.com:80'
   key '0xcbcb082a1bb943db'
   action :add
-  # notifies :run, resources(execute: 'apt-get-update'), :immediately
 end
 
 # Install mariadb server!
@@ -37,6 +36,17 @@ service 'mysql' do
   service_name 'mysql'
   supports restart: true, status: true
   action [:enable, :start]
+end
+
+# Run grants
+template '/root/mysql_constants.sql' do
+  source 'mysql/mysql_constants.sql.erb'
+  notifies :run, resources(execute: 'mysql_constants'), :immediately
+end
+execute 'mysql_constants' do
+  command 'mysql < /root/mysql_constants.sql'
+  ignore_failure true
+  action :nothing
 end
 
 # TODO: OS Tuning
