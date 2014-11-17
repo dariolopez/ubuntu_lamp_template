@@ -15,6 +15,8 @@ package 'mariadb-server' do
   action [:upgrade, :install]
 end
 
+open_files_limit = 8192
+
 template '/etc/mysql/my.cnf' do
   source node['mysql']['template_name']
   owner 'root'
@@ -22,14 +24,15 @@ template '/etc/mysql/my.cnf' do
   mode '0644'
   variables(
     listen: '0.0.0.0',
-    server_id: node['mysql']['server_id']
+    server_id: node['mysql']['server_id'],
+    open_files_limit: open_files_limit
   )
   notifies :restart, 'service[mysql]'
 end
 
 # MySQL ulimit setting
 user_ulimit 'mysql' do
-  filehandle_limit 8192
+  filehandle_limit open_files_limit
   core_hard_limit 'unlimited'
 end
 
