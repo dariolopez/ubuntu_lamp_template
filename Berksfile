@@ -6,6 +6,7 @@ cookbook 'user'
 cookbook 'ulimit', git: 'git@github.com:bmhatfield/chef-ulimit.git'
 cookbook 'newrelic', git: 'git@github.com:escapestudios-cookbooks/newrelic.git'
 cookbook 'cron', git: 'git@github.com:rackspace-cookbooks/cron.git'
+cookbook 'application', git: 'git@github.com:poise/application.git'
 
 # For Rackspace customers only - make sure to remove from metadata.rb as well
 cookbook 'rackops_rolebook', git: 'git@github.com:rackops/rackops_rolebook.git'

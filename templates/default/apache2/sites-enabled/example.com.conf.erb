@@ -1,8 +1,8 @@
-<VirtualHost *:80>
-	ServerName 
+<VirtualHost *:8080>
+	ServerName <%= @appname %>
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html
+	DocumentRoot /var/www/<%= @appname %>/current/
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
