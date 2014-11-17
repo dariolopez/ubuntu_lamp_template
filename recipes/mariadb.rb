@@ -11,7 +11,9 @@ apt_repository 'mariadb' do
 end
 
 # Install mariadb server!
-package 'mariadb-server'
+package 'mariadb-server' do
+  action [:upgrade, :install]
+end
 
 template '/etc/mysql/my.cnf' do
   source node['mysql']['template_name']
@@ -39,14 +41,14 @@ service 'mysql' do
 end
 
 # Run grants
-template '/root/mysql_constants.sql' do
-  source 'mysql/mysql_constants.sql.erb'
-  notifies :run, resources(execute: 'mysql_constants'), :immediately
-end
 execute 'mysql_constants' do
   command 'mysql < /root/mysql_constants.sql'
   ignore_failure true
   action :nothing
+end
+template '/root/mysql_constants.sql' do
+  source 'mysql/mysql_constants.sql.erb'
+  notifies :run, resources(execute: 'mysql_constants'), :immediately
 end
 
 # TODO: OS Tuning

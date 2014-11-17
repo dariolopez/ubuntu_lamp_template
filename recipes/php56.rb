@@ -8,11 +8,12 @@ end
 
 # Install php5.6
 package 'python-software-properties'
-package 'php5'
-package 'php5-fpm'
-# And the most commonly used plugins, although this should be audited (TODO)
-package 'php5-mysql'
-package 'php5-memcached'
+php5_packages = ['php5', 'php5-fpm', 'php5-mysql', 'php5-memcached']
+php5_packages.each do |pkg|
+  package pkg do
+    action [:upgrade, :install]
+  end
+end
 # package 'php5-curl'
 # package 'php5-mcrypt'
 # package 'php5-gd'

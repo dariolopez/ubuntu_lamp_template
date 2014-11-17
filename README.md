@@ -38,6 +38,13 @@ Afterwards, simply bootstrap the nodes! To build a single node test app, just:
 
 run_list: "role[app]", "role[db_master]"
 
+There are some things this cookbook doesn't cover, but it's certainly not much:
+
+1. Log into the MySQL master server and run "mysql_secure_installation"
+2. Set a root password, and create a /root/.my.cnf file on each database server
+3. Audit MySQL users before going to production
+4. Verify all servers are working, including newrelic
+
 Recommended environment size:
 ====================
 

@@ -1,6 +1,8 @@
 # Install and configure Memcached
 
-package 'memcached'
+package 'memcached' do
+  action [:upgrade, :install]
+end
 
 template '/etc/memcached.conf' do
   source 'memcached.conf.erb'

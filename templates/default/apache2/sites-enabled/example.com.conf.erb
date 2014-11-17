@@ -4,14 +4,10 @@
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/<%= @appname %>/current/
 
-	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-	# error, crit, alert, emerg.
-	# It is also possible to configure the loglevel for particular
-	# modules, e.g.
-	#LogLevel info ssl:warn
+  ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost/var/www/<%= @appname %>/current/
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	ErrorLog ${APACHE_LOG_DIR}/<%= @appname %>-error.log
+	CustomLog ${APACHE_LOG_DIR}/<%= @appname %>-access.log combined
 </VirtualHost>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

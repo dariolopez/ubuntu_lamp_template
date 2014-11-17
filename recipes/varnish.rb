@@ -1,6 +1,8 @@
 # Install and configure Varnish
 
-package 'varnish'
+package 'varnish' do
+  action [:upgrade, :install]
+end
 
 # Configure OP cache template
 template '/etc/default/varnish' do

@@ -1,13 +1,23 @@
 # Install and configure Apache2
 
-package 'apache2'
-
-# Configure sites
-include_recipe "#{cookbook_name}::sites"
+# Use Apache 2.4.9, which includes the UDS patch for Unix Socket Support
+apt_repository 'apache2' do
+  uri          'ppa:ondrej/apache2'
+  distribution node['lsb']['codename']
+end
 
 # Apache modules - the only one actually required is proxy_fcgi - but most legacy
 # apps required HEADERS and REWRITE. Disable if not required!
-apache2_modules = ['proxy_fcgi', 'headers', 'rewrite']
+apache2_modules = ['proxy_fcgi', 'headers', 'rewrite', 'mpm_event']
+# Disable mod_php and the prefork MPM since we'll be using EVENT
+disabled_apache2_modules = ['mpm_prefork', 'php5']
+
+package 'apache2' do
+  action [:upgrade, :install]
+end
+
+# Configure sites
+include_recipe "#{cookbook_name}::sites"
 
 # Set the Apache user's ulimit -n (file open limit)
 user_ulimit 'www-data' do
@@ -45,14 +55,16 @@ file '/etc/apache2/sites-enabled/000-default.conf' do
   notifies :restart, 'service[apache2]'
 end
 
-# Ensure mod_php is disabled:
-file '/etc/apache2/mods-enabled/php5.load' do
-  action :delete
-  notifies :restart, 'service[apache2]'
-end
-file '/etc/apache2/mods-enabled/php5.conf' do
-  action :delete
-  notifies :restart, 'service[apache2]'
+# Disabled Apache2 modules
+disabled_apache2_modules.each do |mod|
+  file "/etc/apache2/mods-enabled/#{mod}.load" do
+    action :delete
+    notifies :restart, 'service[apache2]'
+  end
+  file "/etc/apache2/mods-enabled/#{mod}.conf" do
+    action :delete
+    notifies :restart, 'service[apache2]'
+  end
 end
 # Apache2 modules
 apache2_modules.each do |mod|
