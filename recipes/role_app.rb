@@ -4,7 +4,7 @@
 
 # An example of defining some sites:
 node.default['apps'] = {
-  'example.com' => { # This assumes a templates/default/example.com.conf.erb
+  'example.com' => { # This assumes a templates/default/apache2/sites-enabled/example.com.conf.erb
     git_repo: 'git@git...',
     target_branch: 'repo branch',
     deploy_key: 'ssh key...'

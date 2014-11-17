@@ -7,7 +7,6 @@ include_recipe 'apt'
 include_recipe 'user'
 
 package 'software-properties-common'
-package 'vim'
 package 'git'
 
 # Include NewRelic

@@ -1,12 +1,5 @@
 # Install and Configure MariaDB 10.0
 
-# We'll need to update after adding the PPA
-execute 'apt-get-update' do
-  command 'apt-get update'
-  ignore_failure true
-  action :nothing
-end
-
 # Add the MariaDB 10 repo
 apt_repository 'mariadb' do
   uri 'http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu'

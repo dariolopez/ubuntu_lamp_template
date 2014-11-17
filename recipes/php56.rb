@@ -1,34 +1,20 @@
 # Install and configure PHP5.6
 
-# We'll need to update after adding the PPA
-execute 'apt-get-update' do
-  command 'apt-get update'
-  ignore_failure true
-  action :nothing
-end
-
-# Add the 5.6 repo and force an apt-get update
+# Add the 5.6 repo
 apt_repository 'php5.6' do
   uri          'ppa:ondrej/php5-5.6'
   distribution node['lsb']['codename']
-  # notifies :run, resources(execute: 'apt-get-update'), :immediately
 end
 
-# Install python-software-properties and force another update
+# Install php5.6
 package 'python-software-properties'
-# package 'python-software-properties' do
-# notifies :run, resources(execute: 'apt-get-update'), :immediately
-# end
-
-# Finally, install php5.6
 package 'php5'
 package 'php5-fpm'
-
 # And the most commonly used plugins, although this should be audited (TODO)
-package 'php5-curl'
 package 'php5-mysql'
-package 'php5-mcrypt'
 package 'php5-memcached'
+# package 'php5-curl'
+# package 'php5-mcrypt'
 # package 'php5-gd'
 # package 'php5-sqlite'
 
