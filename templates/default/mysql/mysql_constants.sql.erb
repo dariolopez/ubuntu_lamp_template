@@ -1,2 +1,14 @@
 # This is a good place to add customers MySQL users
-# TODO: add examples
+# TODO: add examples of finding clients IPs
+
+CREATE DATABASE IF NOT EXISTS examplecom;
+GRANT ALL PRIVILEGES ON examplecom.* TO 'examplecom'@'localhost' IDENTIFIED BY 'kjb1jk4523bkj';
+FLUSH PRIVILEGES;
+
+USE examplecom;
+CREATE TABLE IF NOT EXISTS examplecom.visitor_log (
+  ip VARCHAR(16),
+  visits INT(12),
+  id int(11) NOT NULL auto_increment,
+  primary KEY (id)
+);

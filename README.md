@@ -45,6 +45,8 @@ There are some things this cookbook doesn't cover, but it's certainly not much:
 3. Audit MySQL users before going to production
 4. Verify all services are working, including newrelic
 5. Read and understand the tuning guide at least once :)
+6. Configure your NewRelic key in the NewRelic recipe
+7. Configure your Rackspace Cloud info in default.rb recipe
 
 Recommended environment size:
 ====================

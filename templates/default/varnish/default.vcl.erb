@@ -3,8 +3,19 @@ backend default {
     .port = "8080";
 }
 
+acl purge {
+    "localhost";
+}
+
 # Respond to incoming requests.
 sub vcl_recv {
+  if (req.request == "PURGE") {
+    if (!client.ip ~ purge) {
+      error 405 "Not allowed.";
+    }
+    return (lookup);
+  }
+
   # Use anonymous, cached pages if all backends are down.
   if (!req.backend.healthy) {
     unset req.http.Cookie;
@@ -104,4 +115,18 @@ sub vcl_error {
 </html>
 "};
   return (deliver);
+}
+
+sub vcl_hit {
+  if (req.request == "PURGE") {
+    purge;
+    error 200 "Purged.";
+  }
+}
+
+sub vcl_miss {
+  if (req.request == "PURGE") {
+    purge;
+    error 200 "Purged.";
+  }
 }
