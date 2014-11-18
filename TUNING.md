@@ -56,7 +56,6 @@ MariaDB 10.0 tuning guide
 Varnish tuning guide
 ---------------------
 #### File open limit
-
 ###### recipes/varnish.rb
 
     ulimit -n
@@ -64,26 +63,22 @@ Varnish tuning guide
   Ensure the systems file open limit is high enough for Varnish to cope with incoming connections - this cookbook will set the limit to 8192, which is normally _way_ more than required - but make sure to monitor the logs for file open limit errors after about 24 hours of production traffic. It is technically possible that Varnish could be serving 10,000 connections at the same time - YOU NEVER KNOW! Most likely MySQL would have exploded by then.
 
 #### Varnish cache size
+###### templates/default/varnish/varnish.erb
 
     -s malloc,256m
 
   Varnish's cache size should ideally be as small as possible, but should be large enough to contain the entirety of the applications static resources. If the application is 500MB, a Varnish cache size of 1GB should be enough to contain not only all static assets, but a good number of the dynamic pages as well. The smaller the Varnish cache size, the lower the Time To First Byte - since Varnish will need to scan less memory to determine if a file is in cache or not. Ensure Varnish isn't quickly reaching its cache and fighting for memory - if that is the case, increase the cache and look into the Purge functionality.
 
 #### VCL Purge functionality
-
 ###### templates/default/varnish/default.vcl.erb
 
   To keep the varnish cache small and efficient, ensure your application purges assets from Varnish when they expire. Wordpress and Drupal both have plugins to this effect. The idea is that when a file or page is no longer needed, the application can notify Varnish, thus freeing up memory intelligently, rather than flushing some older (but still useful) document from cache.
 
 #### Caching static files
 
-    in templates/default/varnish/default.vcl.erb
-
   The default Varnish configuration this recipe provides will help cache static files - but consider ALSO using a service like CloudFlare.com or a Static Content Cache on a Rackspace Cloud Load Balancer
 
 #### Grace time
-
-    in templates/default/varnish/default.vcl.erb
 
   The default Varnish configuration will include a "grace" time, which allows Varnish to serve old content if the backend is replying slowly. This setting causes a very quick user experience, but can mask downtime in a fairly strange way. Make sure you understand what is happening!
 
