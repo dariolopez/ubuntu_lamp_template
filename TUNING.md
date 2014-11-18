@@ -46,7 +46,7 @@ Varnish tuning guide
 
 #### Varnish cache size
 
-  Varnish's cache size should ideally be as small as possible, but should be large enough to contain the entirety of the applications static resources. If the application is 500MB, a Varnish cache size of 1GB should be enough to contain not only all static assets, but a good number of the dynamic pages as well. The smaller the Varnish cache size, the lower the Time To First Byte - since Varnish will need to scan less memory to determin if a file is in cache or not. Ensure Varnish isn't quickly reaching its cache and fighting for memory - if that is the case, increase the cache and look into the Purge functionality.
+  Varnish's cache size should ideally be as small as possible, but should be large enough to contain the entirety of the applications static resources. If the application is 500MB, a Varnish cache size of 1GB should be enough to contain not only all static assets, but a good number of the dynamic pages as well. The smaller the Varnish cache size, the lower the Time To First Byte - since Varnish will need to scan less memory to determine if a file is in cache or not. Ensure Varnish isn't quickly reaching its cache and fighting for memory - if that is the case, increase the cache and look into the Purge functionality.
 
 #### VCL Purge functionality
 
