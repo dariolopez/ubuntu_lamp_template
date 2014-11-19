@@ -1,6 +1,7 @@
 Ubuntu Lamp Template Cookbook
 ====================
 by Seandon Mooy <seandon.mooy@gmail.com>
+edited by Dario Lopez <hello@dariolopez.com>
 
 A template for a LAMP stack application on Ubuntu 14.04 featuring PHP5.6 and
 MariaDB 10.0 - it is designed to be as fast as possible, require as few
